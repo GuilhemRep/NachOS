@@ -138,8 +138,12 @@ Thread *oldThread = g_current_thread;
   #endif
 
   #ifdef ETUDIANTS_TP
-	if (!g_alive->Search(oldThread)) { // If the old thread isn't alive, it means it has finished.
-		delete oldThread;
+	//if (g_thread_to_be_destroyed == oldThread) { // If the old thread isn't alive, it means it has finished.
+	//	delete oldThread;
+	//}
+	if (g_thread_to_be_destroyed) {
+		delete g_thread_to_be_destroyed;
+		g_thread_to_be_destroyed = NULL;
 	}
   #endif
 
