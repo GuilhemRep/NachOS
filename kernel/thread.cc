@@ -126,7 +126,7 @@ int Thread::Start(Process *owner,
 	// Initialize thread content.
 	// Allocate the user stack.
 	int sp = process->addrspace->StackAllocate();
-	InitThreadContext(0, sp, arg);
+	InitThreadContext(sp, sp, arg);
 
 	// Allocate the stack for the RISC-V simulator.
 	int8_t* sim_sp = AllocBoundedArray(SIMULATORSTACKSIZE);
