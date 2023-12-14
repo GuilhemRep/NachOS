@@ -299,7 +299,7 @@ Thread::Finish()
         g_machine-> interrupt->SetStatus(INTERRUPTS_OFF);
 
 	g_thread_to_be_destroyed = this;
-	//g_alive->RemoveItem((void *) this);
+	g_alive->RemoveItem((void *) this);
 	// Block the thread.
 	this->Sleep();
   #endif
