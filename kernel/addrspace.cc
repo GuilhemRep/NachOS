@@ -219,6 +219,7 @@ AddrSpace::AddrSpace(OpenFile * exec_file, Process *p, int *err)
 
 	  // Read it from the disk
 
+	  #ifndef ETUDIANTS_TP
 	  exec_file->ReadAt((char *)&(g_machine->mainMemory[translationTable->getPhysicalPage(virt_page)*g_cfg->PageSize]),
 
 			    g_cfg->PageSize,
@@ -226,9 +227,10 @@ AddrSpace::AddrSpace(OpenFile * exec_file, Process *p, int *err)
 			    elff.getShOffset(i)
 
 			    + pgdisk*g_cfg->PageSize);
-
-
-
+	  #endif
+	  #ifdef ETUDIANTS_TP
+	  // Rien, on ne charge pas en mémoire.
+	  #endif
 	}
 
 	else {
@@ -243,8 +245,6 @@ AddrSpace::AddrSpace(OpenFile * exec_file, Process *p, int *err)
 
 	}
 
-	
-
 	// The page has been loded in physical memory but
 
 	// later-on will be saved in the swap disk. We have to indicate this
@@ -253,13 +253,14 @@ AddrSpace::AddrSpace(OpenFile * exec_file, Process *p, int *err)
 
 	translationTable->setAddrDisk(virt_page,INVALID_SECTOR);
 
-	
-
+	#ifndef ETUDIANTS_TP
 	// The entry is valid
 
 	translationTable->setBitValid(virt_page);
-
-	
+	#endif
+	#ifdef ETUDIANTS_TP
+	translationTable->clearBitValid(virt_page);
+	#endif
 
 	/* End of code without demand paging */
 

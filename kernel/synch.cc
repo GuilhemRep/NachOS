@@ -197,8 +197,6 @@ void Lock::Acquire() {
 
   IntStatus oldLevel = g_machine->interrupt->SetStatus(INTERRUPTS_OFF);
 
-  ASSERT(owner != g_current_thread); // We do not expect self-blocking...
-
   if (!free) {
 	waiting_queue->Prepend(g_current_thread);
   	g_current_thread->Sleep(); // On met le thread courant en état endormi et relâche le processeur (wait non actif).
